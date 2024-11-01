@@ -9,9 +9,7 @@ function About() {
 
         <div className="Blurb">
         <p>my name is kenny,</p> 
-        <p> i like hanging out with my familiy, friends, music, playing <br></br>with techologies like data, web apps, hardware, hamburgers, snowboarding, gaming and best favorite animal friends</p>
         <p>i'd like to use this space to share cool stories, or snippets of things i am working on.  dive in!</p>
-        
         </div>
       </div>
     </>
