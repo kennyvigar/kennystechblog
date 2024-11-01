@@ -7,15 +7,14 @@ import Oct31 from './Oct31'
 function Posts() {
   return (
     <>
-    <div>
-      
+  
+    <div className="Container">
+
       <h4>Posts</h4>
-      <div className="posts">
         <Oct31 />
         <Oct27 />
         <Oct25 />
       </div>
-    </div>
     </>
   );
 }

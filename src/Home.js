@@ -3,7 +3,7 @@ import './App.css';
 function About() {
   return (
     <>
-    <div className="Container">
+    <div className="Container mobileContainer">
         {/* <img className="Pic" src="http://placehold.it/900x400" alt="placeholder" /> */}
         <img className="Pic" src={process.env.PUBLIC_URL + 'kennymoustache.jpeg'} alt="moustache!" width="150" height="100"/>
 
