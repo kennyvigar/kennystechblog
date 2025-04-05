@@ -19,10 +19,8 @@ function About() {
         <ul>
             <li>lowkey games like animal crossing</li>
             <li>music</li>
-            <li>aws and terraform (s3, ecs, eventbridge, step functions, secret vaults, etc)</li>
-            <li>data engineering (sql, python, node, experienced with big data and pipeline builds)</li>
-            <li>react (jsx, html, css (ugh..), bootstrap, stylized compontents,hooks)</li>
-            <li>integrations (rest api, mqtt, sftp, etl)</li>
+            <li>gardening</li>
+            <li>my little dudes :D </li>
           </ul>
         </div>
       </div>
