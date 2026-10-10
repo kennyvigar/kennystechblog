@@ -1,0 +1,6 @@
+# Single page app. Without this Netlify looks for a real file at /about, /projects
+# or /blog/<slug>, finds none and serves its 404 page. The live site has always
+# 404'd on a direct hit or a refresh of any route other than /; only clicking
+# through from the home page worked. Hand every path to index.html and let the
+# router read the URL.
+/*  /index.html  200

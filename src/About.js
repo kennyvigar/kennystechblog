@@ -3,7 +3,11 @@ import './App.css';
 function About() {
   return (
     <div className="Container">
-        <img className="Pic" src={process.env.PUBLIC_URL + 'Unhooded-KennyMcCormick.webp'} alt="moustache!" />
+        {/* New markup. Hidden in legacy mode by ai.css so the original renders unchanged. */}
+        <header className="page-head">
+          <h1 className="page-title">about me</h1>
+        </header>
+        <img className="Pic" src={process.env.PUBLIC_URL + '/Unhooded-KennyMcCormick.webp'} alt="moustache!" />
 
         <div className="Blurb">
         <p>techology i'm familiar with... there's more even!</p>  

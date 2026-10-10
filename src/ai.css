@@ -1,0 +1,484 @@
+/* ============================================================
+   AI design. Scoped to [data-design="ai"] so legacy renders
+   from App.css alone, untouched.
+   Palette is one block. Swapping the look is editing it.
+   ============================================================ */
+[data-design='ai'] {
+  --paper: #fbf7f2;
+  --ink: #17181a;
+  --ink-soft: #6b7076;
+  --rule: #e4ded6;
+  --accent: #fca311;
+  --measure: 70ch;
+  --shell: 1180px;
+  --fs-body: 20px;
+
+  /* Every page's first heading starts at this offset. Home used to centre
+     itself in the viewport while About/Projects/Blog started at the top, so
+     the title jumped down the page when you clicked Home. One token now. */
+  --page-top: 72px;
+
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --hand: 'Caveat', cursive;
+
+  --display-face: var(--sans);
+  --display-weight: 600;
+  --nav-face: var(--mono);
+}
+
+/* type treatments */
+[data-face='serifmono'][data-design='ai'] { --display-face: var(--serif); --display-weight: 400; }
+[data-face='sans'][data-design='ai']      { --nav-face: var(--sans); }
+
+html[data-design='ai'],
+html[data-design='ai'] body { height: auto; overflow-y: visible; }
+
+/* Short pages (Home) have no scrollbar, tall ones (Blog) do, so the whole
+   layout slid sideways on every nav click. Reserving the gutter stops it. */
+html[data-design='ai'] { scrollbar-gutter: stable; }
+
+[data-design='ai'] *,
+[data-design='ai'] *::before,
+[data-design='ai'] *::after { box-sizing: border-box; }
+
+/* .App is a flex column, so every direct child is a flex item. A flex item with
+   `margin: 0 auto` and no explicit width shrink-wraps to its content rather than
+   stretching, because auto cross-axis margins disable align-self:stretch. Without
+   `width: 100%` the header, nav and page containers all collapsed to the width of
+   their own text and centred. That was the centred header and the squished middle. */
+[data-design='ai'] .App > header,
+[data-design='ai'] .site-nav,
+[data-design='ai'] .home,
+[data-design='ai'] .Container,
+[data-design='ai'] .blog-layout { width: 100%; }
+
+[data-design='ai'] body,
+[data-design='ai'] .App {
+  background: var(--paper);
+  color: var(--ink);
+  text-align: left;
+  font-family: var(--sans);
+}
+
+/* ---------- header + nav ---------- */
+/* `.App >` matters. Written as a bare `header` these rules also hit .page-head
+   and .post-head, which are <header> elements too, so every page title inherited
+   the site header's 28px top padding and sat lower than the home title. That was
+   the misalignment when clicking between pages. */
+[data-design='ai'] .App > header {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 28px 24px 0;
+  color: var(--ink);
+  text-align: left;
+  font-family: var(--display-face);
+  font-weight: var(--display-weight);
+  font-size: clamp(23px, 1.9vw, 30px);
+  letter-spacing: -0.015em;
+}
+[data-design='ai'] .App > header p { display: none; }
+[data-design='ai'] .App > header .material-symbols-outlined {
+  font-size: 0.82em;
+  vertical-align: -2px;
+  color: var(--accent);
+}
+
+[data-design='ai'] .App > .HeaderPadding { padding-bottom: 0; }
+
+[data-design='ai'] .site-nav {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 16px 24px 0;
+  text-align: left;
+}
+[data-design='ai'] .site-nav a {
+  font-family: var(--nav-face);
+  font-size: clamp(14px, 1.12vw, 16.5px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink-soft);
+  margin-right: 30px;
+}
+[data-design='ai'] .site-nav a:hover { color: var(--ink); }
+
+/* ---------- home ---------- */
+[data-design='ai'] .home {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: var(--page-top) 24px 64px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(40px, 6vw, 88px);
+  align-items: start;
+  align-content: start;
+}
+
+[data-design='ai'] .display {
+  font-family: var(--display-face);
+  font-weight: var(--display-weight);
+  font-size: clamp(42px, 6.4vw, 96px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0 0 24px;
+}
+
+[data-design='ai'] .lede {
+  font-size: clamp(19px, 1.6vw, 23px);
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 44ch;
+  margin: 0;
+}
+
+/* device: polaroid */
+[data-design='ai'] .polaroid {
+  margin: 0 auto;
+  width: min(360px, 90%);
+  background: #fff;
+  padding: 14px 14px 0;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.13);
+  transform: rotate(-3deg);
+  transition: transform 0.25s ease;
+}
+[data-design='ai'] .polaroid:hover { transform: rotate(0deg); }
+[data-design='ai'] .polaroid img {
+  display: block; width: 100%; height: clamp(230px, 24vw, 300px);
+  object-fit: cover; -webkit-mask: none; mask: none;
+}
+[data-design='ai'] .polaroid figcaption {
+  font-family: var(--hand);
+  font-size: 26px;
+  text-align: center;
+  padding: 8px 0 14px;
+  color: #3a3a38;
+}
+
+
+/* ---------- blog: sidebar + one post, hairlines not cards ---------- */
+[data-design='ai'] .blog-layout {
+  display: grid;
+  grid-template-columns: minmax(210px, 260px) 1fr;
+  gap: 48px;
+  max-width: var(--shell);
+  margin: 0 auto 96px;
+  padding: var(--page-top) 24px 0;
+  align-items: start;
+  text-align: left;
+}
+
+[data-design='ai'] .post-sidebar {
+  position: sticky; top: 24px;
+  border-right: 1px solid var(--rule);
+  padding-right: 20px;
+}
+[data-design='ai'] .sidebar-head {
+  font-family: var(--mono);
+  margin: 0 0 14px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+[data-design='ai'] .sidebar-list { margin: 0; padding: 0; list-style: none; }
+[data-design='ai'] .sidebar-list li { padding: 0; }
+[data-design='ai'] .sidebar-link {
+  display: block; padding: 9px 0; text-decoration: none; color: var(--ink-soft);
+  border-bottom: 1px solid var(--rule);
+}
+[data-design='ai'] .sidebar-list li:last-child .sidebar-link { border-bottom: 0; }
+[data-design='ai'] .sidebar-link:hover { color: var(--ink); }
+[data-design='ai'] .sidebar-link.active { color: var(--ink); }
+[data-design='ai'] .sidebar-link.active .sidebar-title { box-shadow: inset 0 -2px 0 var(--accent); }
+[data-design='ai'] .sidebar-title { font-size: 17px; line-height: 1.45; }
+[data-design='ai'] .sidebar-date {
+  display: block; font-family: var(--mono); font-size: 12px;
+  color: var(--ink-soft); margin-top: 3px;
+}
+
+[data-design='ai'] .post-pane { min-width: 0; }
+[data-design='ai'] .blog-post {
+  margin: 0 0 32px; padding: 0; max-width: var(--measure);
+  background: none; border: 0; border-radius: 0; box-shadow: none; text-align: left;
+}
+[data-design='ai'] .post-head { margin-bottom: 28px; padding-bottom: 18px; border-bottom: 1px solid var(--rule); }
+[data-design='ai'] .post-title {
+  font-family: var(--display-face); font-weight: var(--display-weight);
+  margin: 0; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.12; letter-spacing: -0.02em;
+}
+[data-design='ai'] .post-date {
+  display: block; margin-top: 10px; font-family: var(--mono);
+  font-size: 12.5px; letter-spacing: 0.06em; color: var(--ink-soft);
+}
+[data-design='ai'] .datestyle { display: none; }
+[data-design='ai'] .blog-post p { line-height: 1.75; margin: 0 0 18px; font-size: var(--fs-body); }
+[data-design='ai'] .blog-post a { color: var(--ink); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+/* Posts hardcode width="250" height="100" on images that are actually 4:3, and
+   560x315 on the YouTube embed. aspect-ratio:auto discards the bad attribute hint
+   so images use their real proportions. Iframes have no intrinsic ratio at all,
+   so the embed is given 16:9 explicitly or it squishes as the column narrows. */
+[data-design='ai'] .blog-post img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  border-radius: 6px;
+  margin: 22px 0;
+}
+
+[data-design='ai'] .blog-post iframe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  margin: 22px 0;
+}
+[data-design='ai'] .blog-post .Pic {
+  -webkit-mask: none; mask: none; width: auto; height: auto;
+  grid-column: auto; grid-row: auto;
+}
+
+/* ---------- about / contact ---------- */
+
+/* Page heads match the blog's .post-head exactly: same display face, same
+   hairline, same rhythm. They span both grid columns so the title sits above
+   the photo and the copy rather than inside one of them. */
+[data-design='ai'] .page-head {
+  grid-column: 1 / -1;
+  margin-bottom: 4px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+[data-design='ai'] .page-title {
+  font-family: var(--display-face);
+  font-weight: var(--display-weight);
+  margin: 0;
+  font-size: clamp(30px, 3.6vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+/* The page head is new markup. Legacy never had one, so it is removed there
+   rather than restyled, keeping the original pages pixel-identical. */
+html[data-design='legacy'] .page-head { display: none; }
+
+[data-design='ai'] .Container {
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-columns: minmax(240px, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(36px, 5vw, 72px);
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: var(--page-top) 24px 64px;
+  align-items: start;
+  align-content: start;
+  text-align: left;
+}
+[data-design='ai'] .Blurb { min-height: 0; grid-column: auto; grid-row: auto; }
+[data-design='ai'] .Blurb p { font-size: var(--fs-body); line-height: 1.75; margin: 0 0 12px; }
+[data-design='ai'] .Blurb ul { margin: 0 0 32px; padding: 0; }
+[data-design='ai'] .Blurb li {
+  padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: 18.5px; color: var(--ink-soft);
+}
+[data-design='ai'] .Blurb li a {
+  color: var(--ink);
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+/* About and Contact use different source ratios (742x986 portrait vs 576x576
+   square), so height:auto rendered them at visibly different sizes. One fixed
+   box plus object-fit:cover makes them match. 4:5 is closest to the portrait,
+   so it barely crops that one and takes a small vertical slice off the square. */
+[data-design='ai'] .Container .Pic {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 4 / 5;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  grid-column: auto;
+  grid-row: auto;
+}
+
+/* ---------- projects ---------- */
+/* Projects does NOT use the two-column About/Contact shape. Three projects in a
+   half-width column ran about 3900px tall, which is what pushed the footer so
+   far down. One column, prose capped at --measure, photo as a banner under the
+   title. Same page head, same rhythm, half the page length. */
+/* Projects keeps the exact About/Contact composition: same grid, same photo box,
+   same column starts. It briefly had its own one-column layout to cut the page
+   length, which worked but broke the alignment between tabs. Dropping the empty
+   placeholders bought back more height than the layout change did, so the shared
+   shape wins. Only the list inside the right column is specific to this page. */
+
+
+[data-design='ai'] .project { padding: 0 0 36px; }
+[data-design='ai'] .project + .project {
+  padding-top: 36px;
+  border-top: 1px solid var(--rule);
+}
+
+[data-design='ai'] .project-title {
+  font-family: var(--display-face);
+  font-weight: var(--display-weight);
+  margin: 0 0 6px;
+  font-size: clamp(22px, 2.2vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+[data-design='ai'] .project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 0 0 18px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+[data-design='ai'] .project-stack { color: var(--ink-soft); }
+
+[data-design='ai'] .project-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 0 0 18px;
+}
+
+[data-design='ai'] .project-prose {
+  font-size: var(--fs-body);
+  line-height: 1.75;
+  margin: 0 0 14px;
+  color: var(--ink);
+  max-width: var(--measure);
+}
+
+[data-design='ai'] .project-facts { margin: 0 0 18px; padding: 0; }
+[data-design='ai'] .project-facts li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 18.5px;
+  color: var(--ink-soft);
+}
+
+[data-design='ai'] .eyebrow {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+
+[data-design='ai'] .project-prompt { margin: 0 0 16px; }
+[data-design='ai'] .project-prompt pre {
+  margin: 0;
+  padding: 14px 16px;
+  background: rgba(23, 24, 26, 0.04);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+}
+
+[data-design='ai'] .project-lesson {
+  font-size: 18px;
+  line-height: 1.7;
+  margin: 0 0 16px;
+  color: var(--ink-soft);
+}
+
+[data-design='ai'] .project-links { margin: 0; display: flex; flex-wrap: wrap; gap: 16px; }
+[data-design='ai'] .project-links a {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+/* Unfilled slot. Deliberately loud: an empty placeholder must never ship quietly.
+   Two lines: the registry key to edit, then what belongs there. The key is the
+   point. One component renders all three projects, so a bare "TODO" told you
+   nothing about which entry it came from. */
+[data-design='ai'] .todo {
+  display: block;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: #9a6b00;
+  background: rgba(252, 163, 17, 0.1);
+  border: 1px dashed rgba(252, 163, 17, 0.55);
+  border-radius: 5px;
+  padding: 10px 12px;
+  margin: 0 0 14px;
+}
+[data-design='ai'] .todo-key {
+  display: block;
+  font-family: inherit;
+  font-size: 12px;
+  text-transform: none;
+  color: #7a5400;
+}
+[data-design='ai'] .todo-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: #a8814a;
+}
+
+/* ---------- footer ---------- */
+/* Sticky footer, done properly. The original pinned it with position:absolute against
+   html{height:100%}, which cut off the last post. Static parked it mid-page. Absolute
+   against .App still needed a guessed padding-bottom. This is the real fix: .App is a
+   flex column at least a viewport tall, <main> grows to fill, so the footer is pushed
+   to the bottom on short pages and follows content on long ones. No magic numbers. */
+[data-design='ai'] .App {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: static;
+  padding-bottom: 0;
+}
+[data-design='ai'] .site-main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+[data-design='ai'] .footer {
+  position: static;
+  flex-shrink: 0;
+  margin-top: 56px;
+  background: #1b1d20;
+}
+
+/* ---------- mobile ---------- */
+@media (max-width: 760px) {
+  [data-design='ai'] .home,
+  [data-design='ai'] .Container,
+  [data-design='ai'] .blog-layout {
+    grid-template-columns: 1fr; gap: 28px; padding-left: 16px; padding-right: 16px;
+  }
+  [data-design='ai'] .home { padding-bottom: 56px; }
+  [data-design='ai'] .post-sidebar {
+    position: static; border-right: 0; border-bottom: 1px solid var(--rule); padding: 0 0 12px;
+  }
+  [data-design='ai'] .App > header { padding: 20px 16px 0; }
+}

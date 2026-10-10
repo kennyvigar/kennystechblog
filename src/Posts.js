@@ -1,23 +1,19 @@
 import './App.css';
-import Oct25 from './Oct25'
-import Oct27 from './Oct27'
-import Oct31 from './Oct31'
-import Nov02 from './Nov02'
-import Feb24 from './Feb24'
-import Feb26 from './Feb26'
+import { postsNewestFirst } from './postRegistry';
 
+// Legacy's stacked blog. Markup and order are the original: <h4>Posts</h4> then
+// every post newest first, which is exactly what the hand-written list did.
+// It reads from the registry now so that adding a post is still one line in one
+// file and the diary stays complete in BOTH designs. Nothing visual changed.
 function Posts() {
   return (
     <>
     <div className="Container">
 
       <h4>Posts</h4>
-        <Feb26 />
-        <Feb24 />
-        <Nov02 />
-        <Oct31 />
-        <Oct27 />
-        <Oct25 />
+        {postsNewestFirst.map(({ slug, Component }) => (
+          <Component key={slug} />
+        ))}
       </div>
     </>
   );
