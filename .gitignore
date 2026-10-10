@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 screenshots/
 refs/
+
+# netlify cli link state
+.netlify/

@@ -62,9 +62,16 @@
 .vc-revert:focus-visible,
 .vc-btn:focus-visible { outline: 2px solid #fca311; outline-offset: 2px; }
 
+/* The type picker is wider than the gap between the wordmark and the right
+   edge on a phone, so it sat on top of the nav and hid ABOUT ME and CONTACT.
+   It is scaffolding for choosing a direction, not something a visitor needs,
+   so below 760px only the revert button stays. */
+@media (max-width: 760px) {
+  .vc-panel { display: none; }
+}
+
 @media (max-width: 560px) {
   .variant-controls { top: 6px; right: 6px; gap: 4px; }
   .vc-revert { font-size: 12px; padding: 7px 13px; }
-  .vc-panel { padding: 8px 9px; }
   .vc-btn { font-size: 11px; padding: 4px 8px; }
 }
