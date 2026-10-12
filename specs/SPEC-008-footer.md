@@ -62,7 +62,13 @@ silently.
 
 ## Open
 
-At phone width the footer is roughly 100px of a 900px screen, permanently, for two
-lines of copy at default paragraph margins. On the blog, where posts are long, that
-is a real cut. Tightening the padding and margins below 760px without touching the
-desktop footer has been offered and not yet decided.
+None.
+
+**Resolved.** At phone width the footer was roughly 100px of a 900px screen,
+permanently, for two lines of copy at default paragraph margins. Below 760px the
+paragraphs now lose those margins and take a real gap instead, the padding halves,
+and the type steps down. Roughly 62px. Desktop is untouched.
+
+Nothing else needed adjusting, which is the payoff for measuring the height rather
+than hardcoding it: `--footer-h` follows the new height and the content clearance
+follows it down on its own. A constant would have needed finding and editing here.

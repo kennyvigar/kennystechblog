@@ -643,4 +643,15 @@ html[data-design='legacy'] .hero-polaroid figcaption { display: none; }
     max-width: none;
     aspect-ratio: auto;
   }
+
+  /* ----- footer: fixed, so its height is permanently spent -----
+     Two lines of copy at default paragraph margins cost about 100px of a 900px
+     phone screen, every screen, including long blog posts. The paragraphs lose
+     their default 1em margins and get a real gap instead, and the padding
+     halves. Roughly 62px now. Desktop is untouched.
+     Nothing else needs adjusting: --footer-h is measured, so the content
+     clearance follows this down on its own. */
+  [data-design='ai'] .footer { padding: 12px 16px; }
+  [data-design='ai'] .footer-content { display: grid; gap: 2px; }
+  [data-design='ai'] .footer p { margin: 0; font-size: 13px; line-height: 1.4; }
 }
