@@ -1,5 +1,9 @@
 /* The revert button is new chrome and deliberately exists in BOTH designs.
-   Hiding it in legacy mode would leave no way back. */
+   Hiding it in legacy mode would leave no way back.
+
+   This file used to carry a panel of variant pickers as well. They were
+   scaffolding for choosing a type treatment and a phone photo size, both of
+   which are now settled in ai.css, so the panel and its rules are gone. */
 .variant-controls {
   position: fixed;
   top: 10px;
@@ -24,69 +28,9 @@
 }
 .vc-revert:hover { background: #f2f2f2; }
 
-.vc-panel {
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(0, 0, 0, 0.14);
-  border-radius: 10px;
-  padding: 10px 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: grid;
-  gap: 8px;
-}
-
-.vc-group { display: grid; gap: 4px; }
-
-.vc-label {
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #8a8a84;
-}
-
-.vc-buttons { display: flex; gap: 4px; }
-
-.vc-btn {
-  font: inherit;
-  font-size: 12.5px;
-  padding: 5px 11px;
-  border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  background: #fff;
-  color: #333;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.vc-btn:hover { background: #f4f4f1; }
-.vc-btn.is-on { background: #17181a; border-color: #17181a; color: #fff; }
-
-.vc-revert:focus-visible,
-.vc-btn:focus-visible { outline: 2px solid #fca311; outline-offset: 2px; }
-
-/* The type picker is wider than the gap between the wordmark and the right
-   edge on a phone, so it sat on top of the nav and hid ABOUT ME and CONTACT.
-   It is scaffolding for choosing a direction, not something a visitor needs,
-   so below 760px it still comes out.
-
-   The photo picker has to survive on a phone, because what it switches only
-   happens on a phone. Hiding it where it is the only place it matters would be
-   useless. It moves to the bottom-left instead, clear of the nav and of the
-   revert button, and it is the same scaffolding: both groups come out together
-   once the sizes are settled. */
-@media (max-width: 760px) {
-  .vc-panel {
-    position: fixed;
-    top: auto;
-    /* Clears the footer, which is now fixed to the bottom of the viewport.
-       Same measured height the page content uses. */
-    bottom: calc(var(--footer-h, 100px) + 10px);
-    left: 10px;
-    right: auto;
-  }
-  .vc-group:not(.vc-group--mobile) { display: none; }
-}
+.vc-revert:focus-visible { outline: 2px solid #fca311; outline-offset: 2px; }
 
 @media (max-width: 560px) {
   .variant-controls { top: 6px; right: 6px; gap: 4px; }
   .vc-revert { font-size: 12px; padding: 7px 13px; }
-  .vc-btn { font-size: 11px; padding: 4px 8px; }
 }

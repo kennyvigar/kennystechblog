@@ -1,43 +1,18 @@
 import './toggle.css';
 import { useDesign } from './DesignContext';
 
-const FACES = [
-  ['sansmono', 'sans + mono'],
-  ['serifmono', 'serif + mono'],
-  ['sans', 'all sans'],
-];
-
-const PHOTOS = [
-  ['tight', 'tight'],
-  ['roomy', 'roomy'],
-  ['stock', 'current'],
-];
-
-// `mobile` marks a group that stays on screen below 760px. The type picker does
-// not: it is wider than the gap beside the wordmark and covered the nav.
-function Group({ label, name, options, current, set, mobile }) {
-  return (
-    <div className={`vc-group${mobile ? ' vc-group--mobile' : ''}`}>
-      <span className="vc-label">{label}</span>
-      <div className="vc-buttons">
-        {options.map(([value, text]) => (
-          <button
-            key={value}
-            type="button"
-            className={`vc-btn${current === value ? ' is-on' : ''}`}
-            aria-pressed={current === value}
-            onClick={() => set(name, value)}
-          >
-            {text}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
+// The revert button is the whole control surface now.
+//
+// Underneath it there used to be a panel of variant pickers: type treatment, and
+// later the phone photo sizing. Those were scaffolding for making a decision, and
+// DESIGN_SPEC said they come out once a direction is picked. Both are picked, so
+// they are gone and the choices live in ai.css.
+//
+// The revert button itself is not scaffolding. It is the one piece of honest
+// evidence on the site, and it stays in both designs, because hiding it in legacy
+// would leave no way back.
 function DesignToggle() {
-  const { design, face, photo, set, toggleDesign } = useDesign();
+  const { design, toggleDesign } = useDesign();
   const onLegacy = design === 'legacy';
 
   return (
@@ -45,15 +20,6 @@ function DesignToggle() {
       <button type="button" className="vc-revert" onClick={toggleDesign} aria-pressed={onLegacy}>
         {onLegacy ? 'back to new design' : 'revert to pre-ai design'}
       </button>
-
-      {/* Variant pickers are scaffolding for choosing a direction.
-          Hidden in legacy mode, and they come out once a direction is picked. */}
-      {!onLegacy && (
-        <div className="vc-panel">
-          <Group label="type" name="face" options={FACES} current={face} set={set} />
-          <Group label="photos (phone)" name="photo" options={PHOTOS} current={photo} set={set} mobile />
-        </div>
-      )}
     </div>
   );
 }

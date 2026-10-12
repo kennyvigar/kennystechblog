@@ -20,17 +20,16 @@
 
   --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
-  --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --hand: 'Caveat', cursive;
 
+  /* Settled: sans display, mono for nav and eyebrow labels. This was a live
+     switcher (sans+mono / serif+mono / all sans) while it was being chosen.
+     Instrument Serif went with it, out of here and out of the font request in
+     index.html, since nothing referenced it once serif+mono lost. */
   --display-face: var(--sans);
   --display-weight: 600;
   --nav-face: var(--mono);
 }
-
-/* type treatments */
-[data-face='serifmono'][data-design='ai'] { --display-face: var(--serif); --display-weight: 400; }
-[data-face='sans'][data-design='ai']      { --nav-face: var(--sans); }
 
 html[data-design='ai'],
 html[data-design='ai'] body { height: auto; overflow-y: visible; }
@@ -506,73 +505,53 @@ html[data-design='legacy'] .page-head { display: none; }
    and on About it pushed the whole tech list past the fold. The photo never
    changed size, the column did.
 
-   `data-photo` picks the fix, and only inside this query:
-     tight  polaroid floats at 165px, page photo 104x130 on the title baseline
-     roomy  the same at 180px / 112x140
-     stock  the 2026-10-10 layout, kept for comparison
-   tight and roomy are one design at two sizes, not two designs.
+   These sizes were briefly switchable, tight / roomy / stock, while they were
+   being chosen on a real phone. Tight won, so it is written in plainly here and
+   the switch is gone.
 */
 @media (max-width: 760px) {
-  [data-design='ai'] .home,
   [data-design='ai'] .Container,
   [data-design='ai'] .blog-layout {
     grid-template-columns: 1fr; gap: 28px; padding-left: 16px; padding-right: 16px;
   }
-  [data-design='ai'] .home { padding-bottom: 56px; }
   [data-design='ai'] .post-sidebar {
     position: static; border-right: 0; border-bottom: 1px solid var(--rule); padding: 0 0 12px;
   }
   [data-design='ai'] .App > header { padding: 20px 16px 0; }
 
-  /* ----- stock: heading, lede, polaroid, stacked in that order -----
-     The DOM order is heading, polaroid, lede now, so the before picture has to
-     be restored by grid placement rather than left to fall out of the markup. */
-  [data-photo='stock'][data-design='ai'] .home { row-gap: 28px; }
-  [data-photo='stock'][data-design='ai'] .home > .display  { grid-column: 1; grid-row: 1; }
-  [data-photo='stock'][data-design='ai'] .home > .lede     { grid-column: 1; grid-row: 2; }
-  [data-photo='stock'][data-design='ai'] .home > .home-art { grid-column: 1; grid-row: 3; }
-
   /* ----- home: the polaroid floats and the lede wraps round it -----
-     This works here and nowhere else on the site because the lede is about 90
+     This works here and nowhere else on the site, because the lede is about 90
      characters of prose with nothing after it. Five short lines, then the float
      clears and the last line runs full width underneath, which is what closes
      the shape. On About the same float runs straight into a bordered list and
      falls apart, so that page gets the title row instead.
-     flow-root, not block: the float has to be inside the section's own height
-     or the footer rides up over it. */
-  [data-photo='tight'][data-design='ai'] .home,
-  [data-photo='roomy'][data-design='ai'] .home { display: flow-root; }
-
-  [data-photo='tight'][data-design='ai'] .home > .home-art,
-  [data-photo='roomy'][data-design='ai'] .home > .home-art {
+     flow-root, not block: the float has to count towards the section's own
+     height or the footer rides up over it. */
+  [data-design='ai'] .home {
+    display: flow-root;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 56px;
+  }
+  [data-design='ai'] .home > .home-art {
     float: right;
+    width: 165px;
     margin: 2px 0 16px 18px;
   }
-  [data-photo='tight'][data-design='ai'] .polaroid,
-  [data-photo='roomy'][data-design='ai'] .polaroid { width: 100%; margin: 0; }
-
-  [data-photo='tight'][data-design='ai'] .home > .home-art { width: 165px; }
-  [data-photo='tight'][data-design='ai'] .polaroid { padding: 10px 10px 0; }
-  [data-photo='tight'][data-design='ai'] .polaroid img { height: 125px; }
-  [data-photo='tight'][data-design='ai'] .polaroid figcaption { font-size: 17px; padding: 4px 0 8px; }
-
-  [data-photo='roomy'][data-design='ai'] .home > .home-art { width: 180px; }
-  [data-photo='roomy'][data-design='ai'] .polaroid { padding: 11px 11px 0; }
-  [data-photo='roomy'][data-design='ai'] .polaroid img { height: 136px; }
-  [data-photo='roomy'][data-design='ai'] .polaroid figcaption { font-size: 19px; padding: 5px 0 10px; }
+  [data-design='ai'] .polaroid { width: 100%; margin: 0; padding: 10px 10px 0; }
+  [data-design='ai'] .polaroid img { height: 125px; }
+  [data-design='ai'] .polaroid figcaption { font-size: 17px; padding: 4px 0 8px; }
 
   /* ----- about, contact, projects: photo joins the title row -----
-     Title left, photo right, both sitting on the same baseline, and the hairline
-     that used to live under .page-head moves onto the top of .Blurb so it runs
-     under the pair. No markup changes: the grid does the composing. */
-  [data-photo='tight'][data-design='ai'] .Container,
-  [data-photo='roomy'][data-design='ai'] .Container {
+     Title left, photo right, both on the same baseline, and the hairline that
+     used to live under .page-head moves onto the top of .Blurb so it runs under
+     the pair. No markup changes: the grid does the composing. */
+  [data-design='ai'] .Container {
     grid-template-columns: minmax(0, 1fr) auto;
     column-gap: 16px;
     row-gap: 0;
   }
-  [data-photo='tight'][data-design='ai'] .page-head,
-  [data-photo='roomy'][data-design='ai'] .page-head {
+  [data-design='ai'] .page-head {
     grid-column: 1;
     grid-row: 1;
     align-self: end;
@@ -580,16 +559,13 @@ html[data-design='legacy'] .page-head { display: none; }
     padding-bottom: 0;
     margin-bottom: 0;
   }
-  [data-photo='tight'][data-design='ai'] .Container > .Pic,
-  [data-photo='roomy'][data-design='ai'] .Container > .Pic,
-  [data-photo='tight'][data-design='ai'] .pic-frame,
-  [data-photo='roomy'][data-design='ai'] .pic-frame {
+  [data-design='ai'] .Container > .Pic,
+  [data-design='ai'] .pic-frame {
     grid-column: 2;
     grid-row: 1;
     align-self: end;
   }
-  [data-photo='tight'][data-design='ai'] .Blurb,
-  [data-photo='roomy'][data-design='ai'] .Blurb {
+  [data-design='ai'] .Blurb {
     grid-column: 1 / -1;
     grid-row: 2;
     margin-top: 18px;
@@ -599,33 +575,31 @@ html[data-design='legacy'] .page-head { display: none; }
 
   /* object-position moves to the top: at this size a centred crop of a portrait
      takes the chin and leaves the forehead out. */
-  [data-photo='tight'][data-design='ai'] .Container > .Pic,
-  [data-photo='roomy'][data-design='ai'] .Container > .Pic {
+  [data-design='ai'] .Container > .Pic {
+    width: 104px;
+    height: 130px;
     max-width: none;
     aspect-ratio: auto;
     object-position: center top;
   }
-  [data-photo='tight'][data-design='ai'] .Container > .Pic { width: 104px; height: 130px; }
-  [data-photo='roomy'][data-design='ai'] .Container > .Pic { width: 112px; height: 140px; }
 
   /* Projects only. The hero is a 2x2 collage, so scaling the whole frame down
      gives four thumbnails nobody can read. .pic-frame is a window: the image is
      rendered at twice the window's height and pulled left, so what shows is the
      top-left quadrant alone, at the size a single photo wants to be. */
-  [data-photo='tight'][data-design='ai'] .pic-frame,
-  [data-photo='roomy'][data-design='ai'] .pic-frame {
+  [data-design='ai'] .pic-frame {
     position: relative;
     overflow: hidden;
+    width: 104px;
+    height: 130px;
   }
-  [data-photo='tight'][data-design='ai'] .pic-frame > .Pic,
-  [data-photo='roomy'][data-design='ai'] .pic-frame > .Pic {
+  [data-design='ai'] .pic-frame > .Pic {
     position: absolute;
     top: 0;
+    left: -13px;
+    width: 260px;
+    height: 260px;
     max-width: none;
     aspect-ratio: auto;
   }
-  [data-photo='tight'][data-design='ai'] .pic-frame { width: 104px; height: 130px; }
-  [data-photo='tight'][data-design='ai'] .pic-frame > .Pic { left: -13px; width: 260px; height: 260px; }
-  [data-photo='roomy'][data-design='ai'] .pic-frame { width: 112px; height: 140px; }
-  [data-photo='roomy'][data-design='ai'] .pic-frame > .Pic { left: -14px; width: 280px; height: 280px; }
 }
