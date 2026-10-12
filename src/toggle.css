@@ -65,9 +65,22 @@
 /* The type picker is wider than the gap between the wordmark and the right
    edge on a phone, so it sat on top of the nav and hid ABOUT ME and CONTACT.
    It is scaffolding for choosing a direction, not something a visitor needs,
-   so below 760px only the revert button stays. */
+   so below 760px it still comes out.
+
+   The photo picker has to survive on a phone, because what it switches only
+   happens on a phone. Hiding it where it is the only place it matters would be
+   useless. It moves to the bottom-left instead, clear of the nav and of the
+   revert button, and it is the same scaffolding: both groups come out together
+   once the sizes are settled. */
 @media (max-width: 760px) {
-  .vc-panel { display: none; }
+  .vc-panel {
+    position: fixed;
+    top: auto;
+    bottom: 10px;
+    left: 10px;
+    right: auto;
+  }
+  .vc-group:not(.vc-group--mobile) { display: none; }
 }
 
 @media (max-width: 560px) {

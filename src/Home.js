@@ -26,21 +26,25 @@ function Home() {
     );
   }
 
+  // The polaroid sits between the heading and the lede in the DOM, and the
+  // .home-text wrapper is gone, so all three are direct children of the grid.
+  // A float only affects what comes after it in the flow, so this order is what
+  // lets the copy wrap around the polaroid at phone width. Desktop is unaffected
+  // because ai.css places all three by explicit grid-column and grid-row rather
+  // than by source order.
   return (
     <section className="home">
-      <div className="home-text">
-        <h1 className="display">my name is kenny,</h1>
-        <p className="lede">
-          i&rsquo;d like to use this space to share cool stories, or snippets of
-          things i am working on. dive in!
-        </p>
-      </div>
+      <h1 className="display">my name is kenny,</h1>
       <div className="home-art">
         <figure className="polaroid">
           <img src={process.env.PUBLIC_URL + '/kennymoustache.jpeg'} alt="kenny" />
           <figcaption>kennymoustache.jpeg</figcaption>
         </figure>
       </div>
+      <p className="lede">
+        i&rsquo;d like to use this space to share cool stories, or snippets of
+        things i am working on. dive in!
+      </p>
     </section>
   );
 }

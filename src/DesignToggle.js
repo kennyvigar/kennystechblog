@@ -7,9 +7,17 @@ const FACES = [
   ['sans', 'all sans'],
 ];
 
-function Group({ label, name, options, current, set }) {
+const PHOTOS = [
+  ['tight', 'tight'],
+  ['roomy', 'roomy'],
+  ['stock', 'current'],
+];
+
+// `mobile` marks a group that stays on screen below 760px. The type picker does
+// not: it is wider than the gap beside the wordmark and covered the nav.
+function Group({ label, name, options, current, set, mobile }) {
   return (
-    <div className="vc-group">
+    <div className={`vc-group${mobile ? ' vc-group--mobile' : ''}`}>
       <span className="vc-label">{label}</span>
       <div className="vc-buttons">
         {options.map(([value, text]) => (
@@ -29,7 +37,7 @@ function Group({ label, name, options, current, set }) {
 }
 
 function DesignToggle() {
-  const { design, face, set, toggleDesign } = useDesign();
+  const { design, face, photo, set, toggleDesign } = useDesign();
   const onLegacy = design === 'legacy';
 
   return (
@@ -43,6 +51,7 @@ function DesignToggle() {
       {!onLegacy && (
         <div className="vc-panel">
           <Group label="type" name="face" options={FACES} current={face} set={set} />
+          <Group label="photos (phone)" name="photo" options={PHOTOS} current={photo} set={set} mobile />
         </div>
       )}
     </div>
