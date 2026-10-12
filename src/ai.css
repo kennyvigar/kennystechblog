@@ -455,17 +455,31 @@ html[data-design='legacy'] .page-head { display: none; }
 }
 
 /* ---------- footer ---------- */
-/* Sticky footer, done properly. The original pinned it with position:absolute against
-   html{height:100%}, which cut off the last post. Static parked it mid-page. Absolute
-   against .App still needed a guessed padding-bottom. This is the real fix: .App is a
-   flex column at least a viewport tall, <main> grows to fill, so the footer is pushed
-   to the bottom on short pages and follows content on long ones. No magic numbers. */
+/* Locked to the bottom of the viewport on every page. Home already looked like
+   this, but only by accident: its content is short enough that the sticky footer
+   landed at the bottom of the first screen anyway. Long pages dropped it below
+   the fold. Now every page behaves like Home, and the scrolling happens in the
+   space above it.
+
+   Revision history, because this is the third footer and the first two both
+   broke. The original pinned it with position:absolute against html{height:100%}
+   and that cut off the last post. Static parked it mid-page. The sticky-footer
+   version that replaced them was correct but did not do what was wanted here.
+
+   What makes fixed safe this time is clearance: the content is given real room
+   underneath instead of being left to run on behind the footer, which is the
+   actual mechanism that truncated the last post the first time. --footer-h is
+   measured by Footer.js on mount and on resize, not guessed, because the footer
+   changes height with the breakpoint and with how its copy wraps. The 100px in
+   the fallback is only what applies before the first measurement lands. */
 [data-design='ai'] .App {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
   position: static;
-  padding-bottom: 0;
+  /* border-box is set globally above, so this padding sits inside the 100dvh.
+     Without that, short pages would gain a scrollbar they do not need. */
+  padding-bottom: calc(var(--footer-h, 100px) + 24px);
 }
 [data-design='ai'] .site-main {
   flex: 1 0 auto;
@@ -473,9 +487,13 @@ html[data-design='legacy'] .page-head { display: none; }
   flex-direction: column;
 }
 [data-design='ai'] .footer {
-  position: static;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
   flex-shrink: 0;
-  margin-top: 56px;
+  margin-top: 0;
   background: #1b1d20;
 }
 

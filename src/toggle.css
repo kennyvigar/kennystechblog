@@ -76,7 +76,9 @@
   .vc-panel {
     position: fixed;
     top: auto;
-    bottom: 10px;
+    /* Clears the footer, which is now fixed to the bottom of the viewport.
+       Same measured height the page content uses. */
+    bottom: calc(var(--footer-h, 100px) + 10px);
     left: 10px;
     right: auto;
   }
