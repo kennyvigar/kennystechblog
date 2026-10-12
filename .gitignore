@@ -26,3 +26,6 @@ refs/
 
 # netlify cli link state
 .netlify/
+
+# prompt transcripts, kept local
+prompts/

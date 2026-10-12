@@ -7,7 +7,12 @@ function About() {
         <header className="page-head">
           <h1 className="page-title">about me</h1>
         </header>
-        <img className="Pic" src={process.env.PUBLIC_URL + '/Unhooded-KennyMcCormick.webp'} alt="moustache!" />
+        {/* Same polaroid device as Home. In legacy the figure is display:contents
+            and the caption is hidden, so the original page renders unchanged. */}
+        <figure className="polaroid hero-polaroid">
+          <img className="Pic" src={process.env.PUBLIC_URL + '/Unhooded-KennyMcCormick.webp'} alt="moustache!" />
+          <figcaption>Unhooded-KennyMcCormick.webp</figcaption>
+        </figure>
 
         <div className="Blurb">
         <p>techology i'm familiar with... there's more even!</p>  

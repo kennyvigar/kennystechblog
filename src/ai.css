@@ -316,6 +316,43 @@ html[data-design='legacy'] .page-head { display: none; }
   grid-row: auto;
 }
 
+/* ---------- hero polaroids ----------
+   The polaroid started as Home's single playful gesture. It is now the site's
+   photo treatment: every hero photo wears the same frame, tilt and filename
+   caption, so About, Contact and Projects read as the same site rather than as
+   three pages that happen to share a grid. SPEC-003 recorded the original
+   one-gesture rule and SPEC-006 records this supersedes it.
+
+   The frame is the grid item now, not the image, so the placement that used to
+   live on .Pic moves up to the figure. */
+[data-design='ai'] .Container > .hero-polaroid {
+  width: 100%;
+  max-width: 320px;
+  margin: 0;
+  grid-column: auto;
+  grid-row: auto;
+}
+[data-design='ai'] .hero-polaroid > .pic-frame { width: 100%; }
+[data-design='ai'] .hero-polaroid .Pic {
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 4 / 5;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+/* Filenames are longer than Home's and one of them is much longer, so it is
+   allowed to break rather than forced onto one line or shrunk out of step. */
+[data-design='ai'] .hero-polaroid figcaption { overflow-wrap: anywhere; }
+
+/* Legacy never had a polaroid. display:contents removes the figure's box
+   entirely, so the image sits exactly where it did in the original markup, and
+   the caption is hidden the same way .page-head is. The original pages stay
+   pixel-identical. */
+html[data-design='legacy'] .hero-polaroid { display: contents; }
+html[data-design='legacy'] .hero-polaroid figcaption { display: none; }
+
 /* ---------- projects ---------- */
 /* Projects does NOT use the two-column About/Contact shape. Three projects in a
    half-width column ran about 3900px tall, which is what pushed the footer so
@@ -559,12 +596,17 @@ html[data-design='legacy'] .page-head { display: none; }
     padding-bottom: 0;
     margin-bottom: 0;
   }
-  [data-design='ai'] .Container > .Pic,
-  [data-design='ai'] .pic-frame {
+  [data-design='ai'] .Container > .hero-polaroid {
     grid-column: 2;
     grid-row: 1;
     align-self: end;
+    width: 116px;
+    max-width: none;
+    padding: 8px 8px 0;
   }
+  /* No room for a filename under a 100px frame. The caption is a Home-sized
+     flourish; the frame and the tilt are what carry the device at this size. */
+  [data-design='ai'] .hero-polaroid figcaption { display: none; }
   [data-design='ai'] .Blurb {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -575,30 +617,29 @@ html[data-design='legacy'] .page-head { display: none; }
 
   /* object-position moves to the top: at this size a centred crop of a portrait
      takes the chin and leaves the forehead out. */
-  [data-design='ai'] .Container > .Pic {
-    width: 104px;
-    height: 130px;
-    max-width: none;
+  [data-design='ai'] .hero-polaroid .Pic {
+    width: 100px;
+    height: 125px;
     aspect-ratio: auto;
     object-position: center top;
   }
 
   /* Projects only. The hero is a 2x2 collage, so scaling the whole frame down
-     gives four thumbnails nobody can read. .pic-frame is a window: the image is
-     rendered at twice the window's height and pulled left, so what shows is the
-     top-left quadrant alone, at the size a single photo wants to be. */
-  [data-design='ai'] .pic-frame {
+     gives four thumbnails nobody can read. .pic-frame is a window inside the
+     polaroid: the image is rendered at twice the window's height and pulled
+     left, so what shows is the top-left quadrant alone. */
+  [data-design='ai'] .hero-polaroid > .pic-frame {
     position: relative;
     overflow: hidden;
-    width: 104px;
-    height: 130px;
+    width: 100px;
+    height: 125px;
   }
-  [data-design='ai'] .pic-frame > .Pic {
+  [data-design='ai'] .hero-polaroid .pic-frame > .Pic {
     position: absolute;
     top: 0;
-    left: -13px;
-    width: 260px;
-    height: 260px;
+    left: -12px;
+    width: 250px;
+    height: 250px;
     max-width: none;
     aspect-ratio: auto;
   }

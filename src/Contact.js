@@ -9,7 +9,12 @@ function Contact() {
           <h1 className="page-title">contact</h1>
         </header>
         {/* <img className="Pic" src="http://placehold.it/900x400" alt="placeholder" /> */}
-        <img className="Pic" src={process.env.PUBLIC_URL + '/kennycoffee.webp'} alt="coffeeimage" />
+        {/* Same polaroid device as Home. In legacy the figure is display:contents
+            and the caption is hidden, so the original page renders unchanged. */}
+        <figure className="polaroid hero-polaroid">
+          <img className="Pic" src={process.env.PUBLIC_URL + '/kennycoffee.webp'} alt="coffeeimage" />
+          <figcaption>kennycoffee.webp</figcaption>
+        </figure>
 
         <div className="Blurb">
           <p>find me at</p>

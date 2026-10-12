@@ -68,13 +68,17 @@ function Projects() {
       <header className="page-head">
         <h1 className="page-title">projects</h1>
       </header>
-      {/* The wrapper exists for phone width only. The hero is a four-up collage,
-          so shrinking the whole thing to a thumbnail makes four unreadable
-          photos. .pic-frame is a window ai.css opens on one quadrant instead.
-          It adds nothing on desktop, where the full collage still shows. */}
-      <div className="pic-frame">
-        <img className="Pic" src={process.env.PUBLIC_URL + HERO} alt="" />
-      </div>
+      {/* Same polaroid device as Home. .pic-frame inside it exists for phone
+          width only: the hero is a four-up collage, so shrinking the whole thing
+          to a thumbnail makes four unreadable photos, and ai.css opens a window
+          on one quadrant instead. It adds nothing on desktop, where the full
+          collage still shows inside the frame. */}
+      <figure className="polaroid hero-polaroid">
+        <div className="pic-frame">
+          <img className="Pic" src={process.env.PUBLIC_URL + HERO} alt="" />
+        </div>
+        <figcaption>kennycoffee.webp</figcaption>
+      </figure>
       <div className="Blurb">
         {projects.map((p) => (
           <Project key={p.slug} p={p} />
