@@ -4,6 +4,7 @@ import Oct31 from './Oct31';
 import Nov02 from './Nov02';
 import Feb24 from './Feb24';
 import Feb26 from './Feb26';
+import Oct132026 from './oct132026';
 // Unpublished until Kenny dictates the body. Uncomment this and the entry
 // below to put it live. The component in oct092026.js is untouched.
 // import Oct092026 from './oct092026';
@@ -18,6 +19,12 @@ export const posts = [
   //   date: '2026-10-09',
   //   Component: Oct092026,
   // },
+  {
+    slug: 'site-redesign',
+    title: 'site redesign',
+    date: '2026-10-13',
+    Component: Oct132026,
+  },
   {
     slug: 'first-post-sql-backup-report',
     title: 'first post, and a SQL backup report',
