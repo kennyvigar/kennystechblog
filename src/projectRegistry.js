@@ -54,7 +54,7 @@ export const projects = [
       'integrates with the public applicant tracking APIs the postings actually live on. Greenhouse, Ashby, Lever and Workday, plus the remote job boards. every posting is fetched live at run time, nothing comes out of a model remembering who was hiring',
       'built to hand to a friend. they clone it and set it up against their own resume and their own writing',
     ],
-    links: [],
+    links: [{ label: 'github.com/kennyvigar/jobscout (private)', href: 'https://github.com/kennyvigar/jobscout' }],
   },
   {
     slug: 'airpi',
