@@ -51,7 +51,7 @@ export const projects = [
       'every cover letter is a letter I wrote. the tool swaps the role title and writes one paragraph. I read that paragraph on its own, and I edit the file before it goes out',
       'three rounds of fully generated letters got thrown out before I made my own letter the template. one of them named two AWS products I had never opened',
       'it only scores skills I have confirmed, and subtracts the ones I have said I do not have. I answer each question once and it goes in a ledger',
-      'about 10,900 live postings a run from public applicant tracking APIs. 135 company boards on Greenhouse, Ashby and Lever, 17 Workday tenants and 7 remote aggregators',
+      'integrates with the public applicant tracking APIs the postings actually live on. Greenhouse, Ashby, Lever and Workday, plus the remote job boards. every posting is fetched live at run time, nothing comes out of a model remembering who was hiring',
       'built to hand to a friend. they clone it and set it up against their own resume and their own writing',
     ],
     links: [],
