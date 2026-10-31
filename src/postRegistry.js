@@ -5,6 +5,7 @@ import Nov02 from './Nov02';
 import Feb24 from './Feb24';
 import Feb26 from './Feb26';
 import Oct132026 from './oct132026';
+import Oct312026 from './oct312026';
 // Unpublished until Kenny dictates the body. Uncomment this and the entry
 // below to put it live. The component in oct092026.js is untouched.
 // import Oct092026 from './oct092026';
@@ -13,6 +14,12 @@ import Oct132026 from './oct132026';
 // `date` is a real date so sorting works and the ordinals stop being hand-typed.
 // To add a post: write the component, add a line here. Nothing else to touch.
 export const posts = [
+  {
+    slug: 'opportunity-web-scraper',
+    title: 'the opportunity web scraper',
+    date: '2026-10-31',
+    Component: Oct312026,
+  },
   // {
   //   slug: 'revamping-with-agentic-tools',
   //   title: 'Revamping with Agentic Tools',
