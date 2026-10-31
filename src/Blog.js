@@ -1,4 +1,5 @@
 import './App.css';
+import { useEffect, useRef } from 'react';
 import { Routes, Route, NavLink, Navigate, useParams } from 'react-router-dom';
 import { useDesign } from './DesignContext';
 import Posts from './Posts';
@@ -8,6 +9,29 @@ import { postsNewestFirst, findPost, formatDate } from './postRegistry';
 function PostRoute() {
   const { slug } = useParams();
   const post = findPost(slug);
+  const headRef = useRef(null);
+  const firstRender = useRef(true);
+
+  // Selecting a post from the sidebar scrolls the post's own heading into view.
+  // On a phone the sidebar sits ABOVE the post, so tapping a title used to leave
+  // you looking at the list you just tapped, with the thing you asked for below
+  // the fold and no feedback that anything had happened.
+  //
+  // It skips the first render on purpose. Landing directly on /blog/<slug>, from
+  // a link or a refresh, should show the top of the page rather than yanking it
+  // down before the reader has seen where they are. Only a change of slug counts
+  // as a selection.
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    const el = headRef.current;
+    if (!el) return;
+    const reduced = window.matchMedia
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  }, [slug]);
 
   if (!post) {
     return (
@@ -21,7 +45,7 @@ function PostRoute() {
   const { Component } = post;
   return (
     <article className="blog-post">
-      <header className="post-head">
+      <header className="post-head" ref={headRef}>
         <h2 className="post-title">{post.title}</h2>
         <time className="post-date" dateTime={post.date}>{formatDate(post.date)}</time>
       </header>
