@@ -47,11 +47,9 @@ export const projects = [
     prompt: null,
     lesson: null,
     facts: [
-      'it finds and ranks jobs. it does not apply to anything. I read every posting and I fill in every form myself',
-      'every cover letter is a letter I wrote. the tool swaps the role title and writes one paragraph. I read that paragraph on its own, and I edit the file before it goes out',
-      'three rounds of fully generated letters got thrown out before I made my own letter the template. one of them named two AWS products I had never opened',
-      'it only scores skills I have confirmed, and subtracts the ones I have said I do not have. I answer each question once and it goes in a ledger',
-      'integrates with the public applicant tracking APIs the postings actually live on. Greenhouse, Ashby, Lever and Workday, plus the remote job boards. every posting is fetched live at run time, nothing comes out of a model remembering who was hiring',
+      'you can check out my blog post on this one, but it is just me making my career search more efficient',
+      'i wrote my resume and coverletter because i found that even with a `humanizer` the documentation still just read like cringe ai.. the intention is to keep the job search manual with a full human lead',
+      'this tool does pull in jobs from multiple sources so i can get a match based on keywords from my resume.  the job matches are then put on a dashboard for me to view their "match score" and provide me with the link to apply, key skills, and track my applications through the weeks',
       'built to hand to a friend. they clone it and set it up against their own resume and their own writing',
     ],
     links: [{ label: 'github.com/kennyvigar/jobscout (private)', href: 'https://github.com/kennyvigar/jobscout' }],
@@ -88,10 +86,5 @@ export const projects = [
       'a catalogue of our favourite online beasts, with API integrations to cat facts and cat pics.  Its a vibe.  Questionable color clash styling may have been her choice :) hah',
     ],
     links: [{ label: 'evescatblog.netlify.app', href: 'https://evescatblog.netlify.app/' }],
-  },
-  // Caller 92 is deliberately NOT listed. See DESIGN_SPEC.md: the architecture is
-  // demonstrable but handle-status.js is an unbounded auto-redialer aimed at a third
-  // party's line, which breaks Twilio's AUP and the station's contest rules. Publishing
-  // it under Kenny's own name next to his resume is the liability, not building it.
-  // If it goes up, it goes up reframed as a telephony experiment calling his own number.
+  }
 ];
